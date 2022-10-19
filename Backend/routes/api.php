@@ -3,7 +3,9 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ProductController;
+use App\Models\Customer;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,4 +27,6 @@ Route::group(['middleware' => 'api'], function () {
     Route::post('/refresh', [AuthController::class, 'refresh']);
     Route::get('/profile', [AuthController::class, 'userProfile']);  
     Route::resource('/products', ProductController::class);  
+    Route::get('/customers', [CustomerController::class, 'index']);  
+    Route::get('/customers/{id}', [CustomerController::class, 'getUserCustomers']);  
 });

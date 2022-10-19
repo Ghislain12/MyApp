@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('measures', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->float('shoulder')->nullable();
-            $table->float('length_sleeve')->nullable();
+            $table->float('lengtmh_sleeve')->nullable();
             $table->float('round_sleeve')->nullable();
             $table->float('chest')->nullable();
             $table->float('length_dress')->nullable();

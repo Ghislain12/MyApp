@@ -6,6 +6,7 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use App\Models\Customer;
+use App\Models\Measure;
 use App\Models\ModelImage;
 use App\Models\Orders;
 use Illuminate\Database\Seeder;
@@ -24,5 +25,6 @@ class DatabaseSeeder extends Seeder
         Customer::factory()->count(100)->create();
         ModelImage::factory()->count(100)->create();
         Orders::factory()->count(200)->create();
+        Measure::factory()->count(100)->create();
     }
 }
