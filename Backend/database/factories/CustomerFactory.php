@@ -19,7 +19,7 @@ class CustomerFactory extends Factory
     {
         return [
             'id' => Str::uuid(),
-            'name' => $this->faker->name(),
+            'name' => $this->faker->lastName(),
             'firstname' => $this->faker->firstname(),
             'phone' => $this->faker->phoneNumber(),
             'address' => $this->faker->city(),

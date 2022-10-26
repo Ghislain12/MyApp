@@ -28,5 +28,8 @@ Route::group(['middleware' => 'api'], function () {
     Route::get('/profile', [AuthController::class, 'userProfile']);  
     Route::resource('/products', ProductController::class);  
     Route::get('/customers', [CustomerController::class, 'index']);  
-    Route::get('/customers/{id}', [CustomerController::class, 'getUserCustomers']);  
+    Route::get('/customers/{id}', [CustomerController::class, 'showCustomer']);
+    Route::post('/customers', [CustomerController::class, 'createCustomer']);  
+    Route::get('/user/{id}/customers', [CustomerController::class, 'getUserCustomers']);
+    Route::post('edit/customer/{id}', [CustomerController::class, 'editCustomerProfil']);
 });

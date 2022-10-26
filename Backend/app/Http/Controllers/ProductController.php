@@ -1,31 +1,27 @@
 <?php
+
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Product;
+use Illuminate\Http\JsonResponse;
 
 class ProductController extends Controller
 {
-    /**
-     * Create a new AuthController instance.
-     *
-     * @return void
-     */
-    public function __construct() {
+
+    public function __construct()
+    {
         $this->middleware('auth:api');
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+
+    public function index(): JsonResponse
     {
         $products = Product::all();
-        
+
         return response()->json([
             "status" => true,
             "message" => "Product List",
@@ -33,16 +29,11 @@ class ProductController extends Controller
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+
+    public function store(Request $request): JsonResponse
     {
         $request_data = $request->all();
-        
+
         $validator = Validator::make($request_data, [
             'name' => 'required',
             'mrp' => 'required',
@@ -59,7 +50,7 @@ class ProductController extends Controller
         }
 
         $product = Product::create($request_data);
-        
+
         return response()->json([
             "status" => true,
             "message" => "Product created successfully.",
@@ -67,13 +58,8 @@ class ProductController extends Controller
         ]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Product $product)
+   
+    public function show(Product $product): JsonResponse
     {
         if (is_null($product)) {
             return response()->json([
@@ -89,17 +75,11 @@ class ProductController extends Controller
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Product $product)
+    
+    public function update(Request $request, Product $product): JsonResponse
     {
         $request_data = $request->all();
-        
+
         $validator = Validator::make($request_data, [
             'name' => 'required',
             'mrp' => 'required',
@@ -107,12 +87,12 @@ class ProductController extends Controller
             'quantity' => 'required'
         ]);
 
-        if($validator->fails()){
+        if ($validator->fails()) {
             return response()->json([
                 'status' => false,
                 'message' => 'Invalid Inputs',
                 'error' => $validator->errors()
-            ]);      
+            ]);
         }
 
         $product->name = $request_data['name'];
@@ -120,7 +100,7 @@ class ProductController extends Controller
         $product->price = $request_data['price'];
         $product->quantity = $request_data['quantity'];
         $product->save();
-        
+
         return response()->json([
             "status" => true,
             "message" => "Product updated successfully.",
@@ -128,13 +108,7 @@ class ProductController extends Controller
         ]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Product $product)
+    public function destroy(Product $product): JsonResponse
     {
         $product->delete();
         return response()->json([
